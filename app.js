@@ -70,23 +70,24 @@ function managerInfo() {
             name: "continue"
         }
     
-        ]).then(data)
-        teamArray.push({
-            "Name": data.name,
-            "Role": data.role,
-            "Email": data.email,
-            "ID": data.id,
-            "office number": data.officeNumber
-
-        })
-        (function(data){
-            if(data.continue === "Yes") {
+        ]).then(function(data) {
+            teamArray.push({
+                "Name": data.name,
+                "Role": "Manager",
+                "Email": data.email,
+                "ID": data.id,
+                "office number": data.officeNumber
+            })
+                      
+            if (data.continue === "Yes") {
                 first()
             }else if(data.continue === "No") {
                 return
             }
-        })
-        
+
+        });
+
+       
     };
     
     function engineerInfo() {
@@ -110,7 +111,7 @@ function managerInfo() {
         },
     
         
-        { 
+    { 
        type: "input",
        message: "What is your Git Hub user name?",
        name: "github"
@@ -125,6 +126,15 @@ function managerInfo() {
     
     
     ]) .then(function(data){
+        
+        teamArray.push({
+            "Name": data.name,
+            "Role": "Engineer",
+            "Email": data.email,
+            "ID": data.id,
+            "GitHub": data.github
+        })
+                     
         if(data.continue === "Yes") {
              first()
         }else if(data.continue === "No") {
@@ -170,6 +180,16 @@ function managerInfo() {
             }
 
         ]).then(function(data){
+            
+            teamArray.push({
+                "Name": data.name,
+                "Role": "Intern",
+                "Email": data.email,
+                "ID": data.id,
+                "School": data.school
+            })
+            
+                        
             if(data.continue === "Yes") {
                  first()
             }else if(data.continue === "No") {
@@ -180,17 +200,18 @@ function managerInfo() {
 
     };
 
-    
-    
+        
 };
 
 first();
-
 
 // After the user has input all employees desired, call the `render` function (required
 // above) and pass in an array containing all employee objects; the `render` function will
 // generate and return a block of HTML including templated divs for each employee!
 
+ render(teamArray);
+   
+console.log(render(teamArray));
 // After you have your html, you're now ready to create an HTML file using the HTML
 // returned from the `render` function. Now write it to a file named `team.html` in the
 // `output` folder. You can use the variable `outputPath` above target this location.
