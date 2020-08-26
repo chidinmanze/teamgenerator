@@ -10,41 +10,23 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
 
-const team = [];
+const teamArray = [];
 
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
 
 function first() {
-const questions = inquirer.prompt([
-
-    {
-        type: "input",
-        message: "What is your name?",
-        name: "name",
-      },
-
-      {
-        type: "input",
-        message: "What is your id?",
-        name: "id",
-      },
-
-    {
-      type: "input",
-      message: "What is your email address?",
-      name: "email",
-    },
-
-      {
-        type: "list",
-        choices: ["Manager", "Engineer", "Intern"],
-        message: "What is your role?",
-        name: "role"
-      }
-
-    
+    const questions = inquirer.prompt([
+        {
+          type: "list",
+          choices: ["Manager", "Engineer", "Intern"],
+          message: "What is your role?",
+          name: "role"
+        }
+     
+            
 ]).then(function(data){
+
     if(data.role === "Manager") {
          managerInfo()
     }else if(data.role === "Engineer") {
@@ -57,29 +39,122 @@ const questions = inquirer.prompt([
 
 function managerInfo() {
     inquirer.prompt([
-
+        {
+            type: "input",
+            message: "What is your name?",
+            name: "name"
+          },
+    
+          {
+            type: "input",
+            message: "What is your id?",
+            name: "id"
+          },
+    
+        {
+          type: "input",
+          message: "What is your email address?",
+          name: "email"
+        },
+    
         {
             type: "input",
             message: "What is your office phone number?",
-            name: "office"
-          }
-    
-        ])
-}
+            name: "officeNumber"
+          },
 
-function engineerInfo() {
+          {
+            type: "list",
+            choices: ["Yes", "No"],
+            message: "Would you like to add another team member?",
+            name: "continue"
+        }
+    
+        ]).then(data)
+        teamArray.push({
+            "Name": data.name,
+            "Role": data.role,
+            "Email": data.email,
+            "ID": data.id,
+            "office number": data.officeNumber
+
+        })
+        (function(data){
+            if(data.continue === "Yes") {
+                first()
+            }else if(data.continue === "No") {
+                return
+            }
+        })
+        
+    };
+    
+    function engineerInfo() {
     inquirer.prompt([
-    { 
+        {
+            type: "input",
+            message: "What is your name?",
+            name: "name"
+          },
+    
+          {
+            type: "input",
+            message: "What is your id?",
+            name: "id"
+          },
+    
+        {
+          type: "input",
+          message: "What is your email address?",
+          name: "email"
+        },
+    
+        
+        { 
        type: "input",
        message: "What is your Git Hub user name?",
-       name: "Github"
-    }
+       name: "github"
+    },
 
-    ])
-}
+    {
+        type: "list",
+        choices: ["Yes", "No"],
+        message: "Would you like to add another team member?",
+        name: "continue"
+    }
+    
+    
+    ]) .then(function(data){
+        if(data.continue === "Yes") {
+             first()
+        }else if(data.continue === "No") {
+            return
+        }
+    });
+};
+
 
     function internInfo() {
         inquirer.prompt([
+
+            {
+                type: "input",
+                message: "What is your name?",
+                name: "name",
+              },
+        
+              {
+                type: "input",
+                message: "What is your id?",
+                name: "id",
+              },
+        
+            {
+              type: "input",
+              message: "What is your email address?",
+              name: "email",
+            },
+        
 
             {
                 type: "input",
@@ -97,27 +172,19 @@ function engineerInfo() {
         ]).then(function(data){
             if(data.continue === "Yes") {
                  first()
-            }else if(data.role === "No") {
-                { team.push(data);
-                }
+            }else if(data.continue === "No") {
+               return
             }
-        }
-        
+        });   
     
 
+    };
 
-    )};
-
-function printTeam() {
-    console.log(team);
-}
-
-
+    
+    
 };
 
 first();
-// printTeam();
-
 
 
 // After the user has input all employees desired, call the `render` function (required
