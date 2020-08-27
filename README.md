@@ -14,4 +14,4 @@ This will trigger a series of prompts that allows you to enter information for v
 After entering all information, a team.html file will be generated into the output folder. Open this file in the browser, and you'll see the team members you created in the terminal. 
 
 ## Demo
-<img src="./TeamProflieDemo.gif" alt="app demo" style="width:700px;height:600px;">
+<img src="./TeamProfileDemo.gif" alt="app demo" style="width:700px;height:600px;">
